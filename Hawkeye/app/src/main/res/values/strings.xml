@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hawkeye</string>
+
+    <string name="facebook_app_id">1709665822385375</string>
+    <string name="fb_login_protocol_scheme">fb1709665822385375</string>
+
+
+</resources>

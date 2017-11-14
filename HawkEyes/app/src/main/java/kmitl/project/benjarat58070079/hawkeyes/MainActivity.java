@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
             String id = databaseReference.push().getKey();
             databaseReference.child(id).setValue(user);
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
             finish();

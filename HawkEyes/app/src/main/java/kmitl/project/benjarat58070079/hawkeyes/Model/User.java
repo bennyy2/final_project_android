@@ -3,23 +3,82 @@ package kmitl.project.benjarat58070079.hawkeyes.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 /**
  * Created by Benny on 10/11/2560.
  */
 
 public class User implements Parcelable {
 
+    private DatabaseReference databaseReference;
+    private UserListener listener;
+
+    public interface UserListener{
+        void onCheckedUser(boolean status);
+
+    }
+
+    public void setListener(UserListener listener) {
+        this.listener = listener;
+    }
 
     private String id;
     private String display_name;
     private String email;
     private String image_url;
 
-    public User(String display_name, String email, String image_url) {
+    public User(String id, String display_name, String email, String image_url) {
+        this.id = id;
         this.display_name = display_name;
         this.email = email;
         this.image_url = image_url;
     }
+
+
+    public void saveUserData(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("user");
+        databaseReference.child(this.id).child("display_name").setValue(this.display_name);
+        databaseReference.child(this.id).child("email").setValue(this.email);
+        databaseReference.child(this.id).child("image_url").setValue(this.image_url);
+    }
+
+    public void checkUser(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("user");
+        databaseReference.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                boolean status = true;
+
+                for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    if (data.getKey().equals(id)) {
+                        status = true;
+                        break;
+                    } else {
+                        status = false;
+                    }
+                }
+
+                if (listener != null) {
+                    listener.onCheckedUser(status);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+
+        });
+    }
+
+
 
     public String getId() {
         return id;

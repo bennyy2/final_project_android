@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class NearByFragment extends Fragment {
     private LocationManager locationManager;
     private LocationListener listener;
 
+
     public NearByFragment() {
         // Required empty public constructor
     }
@@ -50,6 +52,7 @@ public class NearByFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_near_by, container, false);
         locationView = rootView.findViewById(R.id.locationView);
@@ -85,15 +88,34 @@ public class NearByFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 10:
-                configure_button();
-                break;
-            default:
-                break;
-        }
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode) {
+//            case 10:
+//                configure_button();
+//                break;
+//            default:
+//                break;
+//        }
+
     }
+
+
+//    private void getLocationPermission() {
+//    /*
+//     * Request location permission, so that we can get the location of the
+//     * device. The result of the permission request is handled by a callback,
+//     * onRequestPermissionsResult.
+//     */
+//        if (ContextCompat.checkSelfPermission(this.getContext(),
+//                android.Manifest.permission.ACCESS_FINE_LOCATION)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            mLocationPermissionGranted = true;
+//        } else {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+//                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+//        }
+//    }
 
     private void configure_button() {
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=

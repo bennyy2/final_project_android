@@ -13,6 +13,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_home_page">HomePageActivity</string>
-
+    
+    <string name="google_maps_key">AIzaSyDhnRJ6ZGOYQYT6rNdUT3cEX8er3lW_l1c</string>
 
 </resources>

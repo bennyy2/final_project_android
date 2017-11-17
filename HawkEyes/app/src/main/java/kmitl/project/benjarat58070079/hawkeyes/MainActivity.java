@@ -42,7 +42,7 @@ import java.security.NoSuchAlgorithmException;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements User.UserListener {
 
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private AVLoadingIndicatorView avLoadingIndicatorView;
     private ConstraintLayout loadingView;
     private DatabaseReference databaseReference;
-
+    private User user;
 
 
     @Override
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LoginButton loginButton = (LoginButton) findViewById(R.id.btnLogin);
-        databaseReference = FirebaseDatabase.getInstance().getReference("user");
 
         loginButton.setReadPermissions("email", "public_profile");
         mCallbackManager = CallbackManager.Factory.create();
@@ -104,26 +103,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        signInFaceBook(currentUser);
     }
 
-    private void updateUI(FirebaseUser currentUser) {
+    private void signInFaceBook(FirebaseUser currentUser) {
         if(currentUser != null){
-            User user = new User(currentUser.getDisplayName(),
+            user = new User(currentUser.getUid(), currentUser.getDisplayName(),
                     currentUser.getEmail(), String.valueOf(currentUser.getPhotoUrl()));
+            user.checkUser();
 //            user.setId(currentUser.getUid());
 //            user.setDisplay_name(currentUser.getDisplayName());
 //            user.setEmail(currentUser.getEmail());
 //            user.setImage_url(String.valueOf(currentUser.getPhotoUrl()));
 
-            String id = databaseReference.push().getKey();
-            databaseReference.child(id).setValue(user);
-            Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
-            intent.putExtra("user", user);
-            startActivity(intent);
-            finish();
+//            String id = databaseReference.push().getKey();
+
 
         }
+    }
+
+    private void showHomePageActivity() {
+        Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
     }
 
 
@@ -140,13 +143,13 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("status", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            signInFaceBook(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("status", "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            signInFaceBook(null);
                         }
 
                         // ...
@@ -161,5 +164,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void hideLoadingView() {
         loadingView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onCheckedUser(boolean status) {
+        if (!status) {
+            user.saveUserData();
+        }
+        showHomePageActivity();
     }
 }

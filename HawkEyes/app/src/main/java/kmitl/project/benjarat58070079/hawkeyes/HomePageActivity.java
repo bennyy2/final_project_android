@@ -1,6 +1,7 @@
 package kmitl.project.benjarat58070079.hawkeyes;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -48,6 +50,7 @@ public class HomePageActivity extends AppCompatActivity
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         user = getIntent().getParcelableExtra("user");
+        Log.i("LogInName", user.getId());
 //        txtUser = findViewById(R.id.txtUser);
 //        txtUser.setText(user.getDisplay_name());
 //        imgProfile = findViewById(R.id.imgProfile);
@@ -101,6 +104,10 @@ public class HomePageActivity extends AppCompatActivity
                 break;
             case R.id.nav_nearby:
                 fragment = new NearByFragment();
+//                Uri uri = Uri.parse("geo:0,0?q=");
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, uri);
+//                mapIntent.setPackage("com.google.android.apps.maps");
+//                startActivity(mapIntent);
                 break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();

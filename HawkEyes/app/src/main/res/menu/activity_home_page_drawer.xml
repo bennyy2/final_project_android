@@ -5,10 +5,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_account"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="My Account" />
-        <item
             android:id="@+id/nav_newfeed"
             android:icon="@mipmap/ic_forum_black_24dp"
             android:title="New Feed" />
@@ -16,6 +12,11 @@
             android:id="@+id/nav_nearby"
             android:icon="@mipmap/ic_location_on_black_24dp"
             android:title="Event Near By" />
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="My Account" />
+
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"

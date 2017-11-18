@@ -38,6 +38,8 @@ public class NearByFragment extends Fragment {
     private LocationListener listener;
 
 
+
+
     public NearByFragment() {
         // Required empty public constructor
     }
@@ -88,14 +90,14 @@ public class NearByFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode) {
-//            case 10:
-//                configure_button();
-//                break;
-//            default:
-//                break;
-//        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 10:
+                configure_button();
+                break;
+            default:
+                break;
+        }
 
     }
 

@@ -110,15 +110,9 @@ public class MainActivity extends AppCompatActivity implements User.UserListener
         if(currentUser != null){
             user = new User(currentUser.getUid(), currentUser.getDisplayName(),
                     currentUser.getEmail(), String.valueOf(currentUser.getPhotoUrl()));
+            Log.i("Status", "signInFaceBook");
+            user.setListener(this);
             user.checkUser();
-//            user.setId(currentUser.getUid());
-//            user.setDisplay_name(currentUser.getDisplayName());
-//            user.setEmail(currentUser.getEmail());
-//            user.setImage_url(String.valueOf(currentUser.getPhotoUrl()));
-
-//            String id = databaseReference.push().getKey();
-
-
         }
     }
 
@@ -171,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements User.UserListener
         if (!status) {
             user.saveUserData();
         }
+        Log.i("Status", "onCheckedUser");
         showHomePageActivity();
     }
 }

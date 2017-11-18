@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import kmitl.project.benjarat58070079.hawkeyes.Fragment.MyAccountFragment;
 import kmitl.project.benjarat58070079.hawkeyes.Fragment.NearByFragment;
@@ -32,6 +33,8 @@ public class HomePageActivity extends AppCompatActivity
     private Button btnLogOut;
     private TextView txtEmail, txtUser;
     private ImageView imgProfile;
+    private NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +50,19 @@ public class HomePageActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+        navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         user = getIntent().getParcelableExtra("user");
-        Log.i("LogInName", user.getId());
-//        txtUser = findViewById(R.id.txtUser);
-//        txtUser.setText(user.getDisplay_name());
-//        imgProfile = findViewById(R.id.imgProfile);
-//        User user = new User();
-//        txtUser.setText(user.getDisplay_name());
-//        Picasso.with(HomeActivity.this).load(user.getImage_url()).into(imgProfile);
+        txtUser = navigationView.getHeaderView(0).findViewById(R.id.txtUser);
+        txtUser.setText(user.getDisplay_name());
+        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
+        txtEmail.setText(user.getEmail());
+        imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imgProfile);
+        Picasso.with(this).load(user.getImage_url()).into(imgProfile);
+
+        onNavigationItemSelected(this.navigationView.getMenu().getItem(0));
+
     }
 
 
@@ -96,18 +102,23 @@ public class HomePageActivity extends AppCompatActivity
         Fragment fragment = null;
 
         switch(id){
-            case R.id.nav_account:
-                fragment = new MyAccountFragment();
-                break;
             case R.id.nav_newfeed:
                 fragment = new NewFeedFragment();
+
+                this.navigationView.setCheckedItem(R.id.nav_newfeed);
+
                 break;
             case R.id.nav_nearby:
                 fragment = new NearByFragment();
+                this.navigationView.setCheckedItem(R.id.nav_nearby);
 //                Uri uri = Uri.parse("geo:0,0?q=");
 //                Intent mapIntent = new Intent(Intent.ACTION_VIEW, uri);
 //                mapIntent.setPackage("com.google.android.apps.maps");
 //                startActivity(mapIntent);
+                break;
+            case R.id.nav_account:
+                fragment = new MyAccountFragment();
+                this.navigationView.setCheckedItem(R.id.nav_account);
                 break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();

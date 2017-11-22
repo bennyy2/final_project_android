@@ -52,7 +52,6 @@ public class HomePageActivity extends AppCompatActivity
 
         navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         user = getIntent().getParcelableExtra("user");
         txtUser = navigationView.getHeaderView(0).findViewById(R.id.txtUser);
         txtUser.setText(user.getDisplay_name());
@@ -103,8 +102,11 @@ public class HomePageActivity extends AppCompatActivity
 
         switch(id){
             case R.id.nav_newfeed:
-                fragment = new NewFeedFragment();
 
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                fragment = new NewFeedFragment();
+                fragment.setArguments(bundle);
                 this.navigationView.setCheckedItem(R.id.nav_newfeed);
 
                 break;

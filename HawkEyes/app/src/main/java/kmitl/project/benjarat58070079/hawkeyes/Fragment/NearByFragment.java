@@ -18,8 +18,16 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
+import java.util.ArrayList;
 
 import kmitl.project.benjarat58070079.hawkeyes.R;
 
@@ -30,12 +38,16 @@ import static android.content.Context.LOCATION_SERVICE;
  * A simple {@link Fragment} subclass.
 
  */
-public class NearByFragment extends Fragment {
+public class NearByFragment extends Fragment implements OnMapReadyCallback {
 
     private TextView locationView;
     private Button getLocation;
     private LocationManager locationManager;
     private LocationListener listener;
+    private ArrayList<String> type = new ArrayList<>();
+    private Spinner spinner;
+    private MapView mapView;
+    private GoogleMap mGoogleMap;
 
 
 
@@ -48,8 +60,15 @@ public class NearByFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Near By Event");
+        mapView = view.findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.onResume();
+        mapView.getMapAsync(this);
+
 
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,49 +76,74 @@ public class NearByFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_near_by, container, false);
-        locationView = rootView.findViewById(R.id.locationView);
-        getLocation = rootView.findViewById(R.id.getLocation);
-        locationManager = (LocationManager) this.getContext().getSystemService(LOCATION_SERVICE);
-        listener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                locationView.append("\n " + location.getLongitude() + " " + location.getLatitude());
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-
-            }
-        };
-        configure_button();
+        eventType();
+        spinner = rootView.findViewById(R.id.event_type);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
+                android.R.layout.simple_dropdown_item_1line, type);
+        spinner.setAdapter(adapter);
+//        locationView = rootView.findViewById(R.id.locationView);
+//        getLocation = rootView.findViewById(R.id.getLocation);
+//        locationManager = (LocationManager) this.getContext().getSystemService(LOCATION_SERVICE);
+//        listener = new LocationListener() {
+//            @Override
+//            public void onLocationChanged(Location location) {
+//                locationView.append("\n " + location.getLongitude() + " " + location.getLatitude());
+//            }
+//
+//            @Override
+//            public void onStatusChanged(String s, int i, Bundle bundle) {
+//
+//            }
+//
+//            @Override
+//            public void onProviderEnabled(String s) {
+//
+//            }
+//
+//            @Override
+//            public void onProviderDisabled(String s) {
+//
+//            }
+//        };
+//        configure_button();
         return rootView;
 
 
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 10:
-                configure_button();
-                break;
-            default:
-                break;
-        }
+    private void eventType() {
+        type.add("Accident");
+        type.add("Murder");
+        type.add("Robbery");
+        type.add("Kidnap");
+        type.add("Illegal trading");
+        type.add("Gambling");
+        type.add("Stalking");
+        type.add("physically assaulted");
+        type.add("Other");
 
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mGoogleMap = googleMap;
+    }
+}
+
+
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode) {
+//            case 10:
+//                configure_button();
+//                break;
+//            default:
+//                break;
+//        }
+//
+//    }
 
 
 //    private void getLocationPermission() {
@@ -119,27 +163,27 @@ public class NearByFragment extends Fragment {
 //        }
 //    }
 
-    private void configure_button() {
-        if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}
-                        , 10);
-            }
-            return;
-        }
-        // this code won'textView execute IF permissions are not allowed, because in the line above there is return statement.
-        getLocation.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onClick(View view) {
+//    private void configure_button() {
+//        if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+//                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(),
+//                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+//                                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}
+//                        , 10);
+//            }
+//            return;
+//        }
+//        // this code won'textView execute IF permissions are not allowed, because in the line above there is return statement.
+//        getLocation.setOnClickListener(new View.OnClickListener() {
+//            @SuppressLint("MissingPermission")
+//            @Override
+//            public void onClick(View view) {
+//
+//                locationManager.requestLocationUpdates("gps", 5000, 0, listener);
+//            }
+//        });
+//    }
 
-                locationManager.requestLocationUpdates("gps", 5000, 0, listener);
-            }
-        });
-    }
 
 
-}

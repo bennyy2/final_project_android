@@ -68,7 +68,7 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
 
 
     private Spinner spinner;
-    private ArrayList<String> type = new ArrayList<String>();
+    private ArrayList<String> type = new ArrayList<>();
     TextView placeAddress, tvLatitude, tvLongtitude;
     private final static int MY_PERMISSION_FINE_LOCATION = 101;
     private final static int PLACE_PICKER_REQUEST = 1;

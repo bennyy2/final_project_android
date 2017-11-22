@@ -42,7 +42,7 @@ import java.security.NoSuchAlgorithmException;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
 
 
-public class MainActivity extends AppCompatActivity implements User.UserListener {
+public class MainActivity extends AppCompatActivity  {
 
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
@@ -111,8 +111,10 @@ public class MainActivity extends AppCompatActivity implements User.UserListener
             user = new User(currentUser.getUid(), currentUser.getDisplayName(),
                     currentUser.getEmail(), String.valueOf(currentUser.getPhotoUrl()));
             Log.i("Status", "signInFaceBook");
-            user.setListener(this);
-            user.checkUser();
+//            user.setListener(this);
+            user.saveUserData();
+            showHomePageActivity();
+//            user.checkUser();
         }
     }
 
@@ -160,12 +162,13 @@ public class MainActivity extends AppCompatActivity implements User.UserListener
         loadingView.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onCheckedUser(boolean status) {
-        if (!status) {
-            user.saveUserData();
-        }
-        Log.i("Status", "onCheckedUser");
-        showHomePageActivity();
-    }
+//    @Override
+//    public void onCheckedUser(boolean status) {
+//        user.saveUserData();
+//        if (!status) {
+//            user.saveUserData();
+//        }
+//        Log.i("Status", "onCheckedUser");
+//        showHomePageActivity();
+//    }
 }

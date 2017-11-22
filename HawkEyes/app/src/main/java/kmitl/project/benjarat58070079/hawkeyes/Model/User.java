@@ -45,6 +45,7 @@ public class User implements Parcelable {
         Log.i("Status","saveUserData");
         databaseReference = FirebaseDatabase.getInstance().getReference("user");
         databaseReference.child(this.id).child("display_name").setValue(this.display_name);
+        databaseReference.child(this.id).child("id").setValue(this.id);
         databaseReference.child(this.id).child("email").setValue(this.email);
         databaseReference.child(this.id).child("image_url").setValue(this.image_url);
     }

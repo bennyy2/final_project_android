@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import kmitl.project.benjarat58070079.hawkeyes.Adapter.PostAdapter;
@@ -37,11 +38,17 @@ import kmitl.project.benjarat58070079.hawkeyes.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewFeedFragment extends Fragment {
+
+public class NewFeedFragment extends Fragment implements NewFeedListener {
 
     private User user;
+
     private ArrayList<Post> allPost;
+    private ArrayList<User> allUser;
     private RecyclerView listView;
+    private DatabaseReference databaseReference;
+
+    private NewFeedListener listener;
 
 
     public NewFeedFragment() {
@@ -84,28 +91,60 @@ public class NewFeedFragment extends Fragment {
 
         this.listView = rootView.findViewById(R.id.listView);
         this.listView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 1));
+        listener = this;
         readData();
         return rootView;
     }
 
 
     private void readData(){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("post/");
+        databaseReference = FirebaseDatabase.getInstance().getReference("post/");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 allPost = new ArrayList<>();
 
-                for (DataSnapshot dn: dataSnapshot.getChildren()) {
+                for (DataSnapshot dn : dataSnapshot.getChildren()) {
                     Post post = dn.getValue(Post.class);
                     allPost.add(post);
+                }
+                if (listener != null) {
+                    listener.OnFetchPostsData();
+                }
+            }
 
-//                    String key = dataSnapshot.getValue();
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void setUI() {
+
+        PostAdapter adapter = new PostAdapter(getActivity(), getContext());
+        adapter.setData(this.allPost);
+        adapter.setData_user(this.allUser);
+        this.listView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void OnFetchPostsData() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("user/");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                allUser = new ArrayList<>();
+                for(DataSnapshot dn: dataSnapshot.getChildren()){
+                    User user = dn.getValue(User.class);
+                    allUser.add(user);
                 }
 
-                setUI();
-
+                if (listener != null) {
+                    listener.OnFetchUserData();
+                }
             }
 
             @Override
@@ -115,12 +154,15 @@ public class NewFeedFragment extends Fragment {
         });
     }
 
-    private void setUI() {
-        PostAdapter adapter = new PostAdapter(getActivity(), getContext());
-        adapter.setData(this.allPost);
-        this.listView.setAdapter(adapter);
+
+
+    @Override
+    public void OnFetchUserData() {
+        setUI();
     }
+}
 
-
-
+interface NewFeedListener {
+    void OnFetchPostsData();
+    void OnFetchUserData();
 }

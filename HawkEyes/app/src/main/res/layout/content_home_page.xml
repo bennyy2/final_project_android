@@ -5,6 +5,7 @@
     android:id="@+id/content_home_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFF0"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="kmitl.project.benjarat58070079.hawkeyes.HomePageActivity"
     tools:showIn="@layout/app_bar_home_page">

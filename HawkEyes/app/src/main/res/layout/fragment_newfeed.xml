@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10px"
-
         android:layout_weight="3" />
 
     <android.support.design.widget.FloatingActionButton
@@ -23,7 +22,7 @@
         android:layout_margin="10dp"
         android:clickable="true"
         android:src="@mipmap/ic_add_white_24dp"
-        app:backgroundTint="@android:color/holo_orange_light"
+        app:backgroundTint="#A3E7D8"
         app:fabSize="normal"/>
 
 

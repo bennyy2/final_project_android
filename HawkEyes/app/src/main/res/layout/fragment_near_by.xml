@@ -4,34 +4,37 @@
     android:layout_height="match_parent"
     tools:context="kmitl.project.benjarat58070079.hawkeyes.Fragment.NearByFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--<TextView-->
-        <!--android:id="@+id/locationView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:text="Your location now: " />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/getLocation"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="get gps"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select type you want to find"
+        android:gravity="center"
+        android:layout_marginTop="10px"/>
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:id="@+id/event_type"/>
-        <com.google.android.gms.maps.MapView
-            android:layout_margin="20px"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/mapView" />
+        <ImageButton
+            android:background="@drawable/search"
+            android:id="@+id/selectType"
+            android:layout_gravity="center"
+            android:layout_width="130px"
+            android:layout_height="100px"/>
 
+
+    <com.google.android.gms.maps.MapView
+        android:layout_margin="20px"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mapView" />
     </LinearLayout>
 
 

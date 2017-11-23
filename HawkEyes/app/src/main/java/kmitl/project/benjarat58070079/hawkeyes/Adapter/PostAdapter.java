@@ -35,6 +35,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
 
     private ArrayList<Post> data;
     private ArrayList<User> data_user;
+    private User user;
     private Activity activity;
     private Context context;
 //    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
@@ -44,6 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
         this.activity = activity;
         this.context = context;
     }
+
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -85,6 +87,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
         return this.data.size();
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void setData(ArrayList<Post> data) {
         this.data = data;
     }
@@ -116,6 +122,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
 //            User user = data_user.get(getAdapterPosition());
             Intent intent = new Intent(context, ShowSelectFeedActivity.class);
             intent.putExtra("post", post);
+            intent.putExtra("user", user);
             intent.putParcelableArrayListExtra("data_user", data_user);
             context.startActivity(intent);
         }

@@ -4,14 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by Benny on 20/11/2560.
  */
 
 public class Post implements Parcelable {
+    private String id;
     private String text_post;
     private String type;
     private String address;
@@ -20,6 +26,7 @@ public class Post implements Parcelable {
     private String dateTime;
     private String post_user;
     private DatabaseReference databaseReference;
+    private ArrayList<Post> postByType;
 
 
 
@@ -28,8 +35,10 @@ public class Post implements Parcelable {
 
     public void savePost(){
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("post");
+        databaseReference = FirebaseDatabase.getInstance().getReference("post/");
         String key = databaseReference.push().getKey();
+        this.id = key;
+        databaseReference.child(key).child("id").setValue(this.id);
         databaseReference.child(key).child("text_post").setValue(this.text_post);
         databaseReference.child(key).child("type").setValue(this.type);
         databaseReference.child(key).child("address").setValue(this.address);
@@ -37,9 +46,16 @@ public class Post implements Parcelable {
         databaseReference.child(key).child("longtitude").setValue(this.longtitude);
         databaseReference.child(key).child("dateTime").setValue(this.dateTime);
         databaseReference.child(key).child("post_user").setValue(this.post_user);
-
     }
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getText_post() {
         return text_post;
@@ -105,6 +121,7 @@ public class Post implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.text_post);
         dest.writeString(this.type);
         dest.writeString(this.address);
@@ -112,10 +129,10 @@ public class Post implements Parcelable {
         dest.writeValue(this.longtitude);
         dest.writeString(this.dateTime);
         dest.writeString(this.post_user);
-        dest.writeParcelable((Parcelable) this.databaseReference, flags);
     }
 
     protected Post(Parcel in) {
+        this.id = in.readString();
         this.text_post = in.readString();
         this.type = in.readString();
         this.address = in.readString();
@@ -123,10 +140,9 @@ public class Post implements Parcelable {
         this.longtitude = (Double) in.readValue(Double.class.getClassLoader());
         this.dateTime = in.readString();
         this.post_user = in.readString();
-        this.databaseReference = in.readParcelable(DatabaseReference.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>() {
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
         @Override
         public Post createFromParcel(Parcel source) {
             return new Post(source);

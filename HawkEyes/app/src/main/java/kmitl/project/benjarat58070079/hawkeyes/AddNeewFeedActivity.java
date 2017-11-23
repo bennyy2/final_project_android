@@ -51,6 +51,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ServerValue;
 
 import java.io.IOException;
 import java.io.StringBufferInputStream;
@@ -69,13 +70,14 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
 
     private Spinner spinner;
     private ArrayList<String> type = new ArrayList<>();
-    TextView placeAddress, tvLatitude, tvLongtitude;
+    private TextView placeAddress, tvLatitude, tvLongtitude;
     private final static int MY_PERMISSION_FINE_LOCATION = 101;
     private final static int PLACE_PICKER_REQUEST = 1;
     private Post post;
     private User user;
     private Place place;
-    EditText text_post;
+    private EditText text_post;
+    private int clickCheck = 0;
 
 
     @Override
@@ -88,8 +90,6 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
         spinner = findViewById(R.id.event_type);
         text_post = findViewById(R.id.text_post);
         placeAddress = findViewById(R.id.placeAddress);
-        tvLatitude = findViewById(R.id.tvLatitude);
-        tvLongtitude = findViewById(R.id.tvLongtitude);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, type);
         spinner.setAdapter(adapter);
@@ -127,7 +127,8 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
         type.add("Illegal trading");
         type.add("Gambling");
         type.add("Stalking");
-        type.add("physically assaulted");
+        type.add("Physically assaulted");
+        type.add("Things lost");
         type.add("Other");
 
     }
@@ -138,6 +139,8 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         Intent intent = builder.build(AddNeewFeedActivity.this);
         startActivityForResult(intent, PLACE_PICKER_REQUEST);
+        clickCheck = 5;
+
 
     }
 
@@ -147,35 +150,30 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
         if(requestCode == PLACE_PICKER_REQUEST){
             if(resultCode == RESULT_OK){
                 place = PlacePicker.getPlace(AddNeewFeedActivity.this, data);
-
-                    Double latitude = place.getLatLng().latitude;
-                    Double longitude = place.getLatLng().longitude;
                     placeAddress.setText(String.valueOf(place.getAddress()));
-                    tvLatitude.setText(String.valueOf(latitude));
-                    tvLongtitude.setText(String.valueOf(longitude));
 
             }
         }
     }
 
     public void onSubmitData(View view) {
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String date = format.format(currentTime);
-        if(text_post != null){
+        if(clickCheck == 0){
+            Toast.makeText(this.getApplicationContext(), "Select location of event", Toast.LENGTH_LONG).show();
+        }else{
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String date = format.format(currentTime);
             Post post = new Post();
-            post.setText_post(text_post.getText().toString());
+            post.setText_post(String.valueOf(text_post.getText()));
             post.setAddress(String.valueOf(place.getAddress()));
             post.setLatitude(place.getLatLng().latitude);
             post.setLongtitude(place.getLatLng().longitude);
             post.setPost_user(user.getId());
-            post.setType(spinner.getSelectedItem().toString());
+            post.setType(String.valueOf(spinner.getSelectedItem()));
             post.setDateTime(date);
             post.savePost();
             finish();
             Toast.makeText(this.getApplicationContext(), "Post", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this.getApplicationContext(), "Fill your comment.", Toast.LENGTH_LONG).show();
         }
 
 

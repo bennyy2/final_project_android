@@ -5,18 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20px"
+    android:background="#FFFFF0"
     tools:context="kmitl.project.benjarat58070079.hawkeyes.AddNeewFeedActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_height="120px"
         android:text="Add new post."
-        android:textSize="20sp"
+        android:background="#88BBAA"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
 
     <LinearLayout
+        android:layout_marginLeft="10px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -24,52 +28,58 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Write Post :"/>
 
 
         <EditText
             android:id="@+id/text_post"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
             android:ems="10"
             android:inputType="textMultiLine" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_marginTop="10px"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
             android:text="Event Type :"/>
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:id="@+id/event_type"/>
 
-    </LinearLayout>
 
+    <LinearLayout
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="20px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     <TextView
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your location"/>
+        android:text="Click here to get the location of accident : "/>
 
-    <Button
-        android:layout_gravity="center"
+    <ImageButton
+        android:layout_marginLeft="50px"
         android:onClick="onPlacePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="get your current location"/>
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:background="@drawable/ic_gps_fixed_indicator"/>
+    </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="10px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -86,46 +96,18 @@
             android:text="Place Address"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latitude : "/>
-
-        <TextView
-            android:id="@+id/tvLatitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="latitude"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Longtitude : "/>
-
-        <TextView
-            android:id="@+id/tvLongtitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="longtitude"/>
-
-    </LinearLayout>
 
 
     <Button
+        android:background="#FFFFF0"
+        android:layout_marginTop="50px"
+        android:layout_gravity="center"
         android:onClick="onSubmitData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#88BBAA"
+        android:layout_width="150px"
+        android:layout_height="100px"
         android:text="send"/>
 
 

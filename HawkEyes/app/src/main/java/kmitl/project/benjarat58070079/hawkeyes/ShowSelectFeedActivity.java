@@ -3,7 +3,12 @@ package kmitl.project.benjarat58070079.hawkeyes;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,22 +20,36 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import kmitl.project.benjarat58070079.hawkeyes.Adapter.CommentAdapter;
+import kmitl.project.benjarat58070079.hawkeyes.Adapter.PostAdapter;
+import kmitl.project.benjarat58070079.hawkeyes.Model.Comment;
 import kmitl.project.benjarat58070079.hawkeyes.Model.Post;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
 
+import static java.security.AccessController.getContext;
 import static kmitl.project.benjarat58070079.hawkeyes.R.id.mapFragment;
 
 public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Post post;
     private ArrayList<User> data_user;
+    private ArrayList<Comment> allComment;
     private GoogleMap mGoogleMap;
+    private User user;
     TextView display_user, show_post, show_date, show_type;
+    EditText commentText;
     ImageView profile_user;
+    private RecyclerView listView;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +62,13 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
         show_date = findViewById(R.id.show_date);
         show_type = findViewById(R.id.show_type);
         profile_user = findViewById(R.id.profile_user);
+        commentText = findViewById(R.id.comment);
+        user = getIntent().getParcelableExtra("user");
         setText();
         initMap();
+        listView = findViewById(R.id.listView);
+        listView.setLayoutManager(new GridLayoutManager(this, 1));
+        readData();
     }
 
     public void setText(){
@@ -65,6 +89,39 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
         mapFragment.getMapAsync(this);
     }
 
+    private void readData(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("comment/");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                allComment = new ArrayList<>();
+                for(DataSnapshot dn: dataSnapshot.getChildren()){
+                    Comment comment = dn.getValue(Comment.class);
+                    if(comment.getPost_id().equals(post.getId())){
+                        allComment.add(comment);
+                    }
+
+                }
+                setUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void setUI() {
+
+        CommentAdapter adapter = new CommentAdapter(this);
+        adapter.setAllComment(this.allComment);
+        adapter.setData_user(this.data_user);
+        listView.setAdapter(adapter);
+        Log.i("CommentPost", "setUI");
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -79,5 +136,15 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
         MarkerOptions options = new MarkerOptions().title("Post's Location")
                 .position(new LatLng(latitude, longtitude));
         mGoogleMap.addMarker(options);
+    }
+
+    public void onSaveComment(View view) {
+        Comment comment = new Comment();
+//        comment.setPost_id();
+        comment.setPost_id(post.getId());
+        comment.setComment_text(String.valueOf(commentText.getText()));
+        comment.setUser_id(user.getId());
+        comment.saveComment();
+        commentText.setText("");
     }
 }

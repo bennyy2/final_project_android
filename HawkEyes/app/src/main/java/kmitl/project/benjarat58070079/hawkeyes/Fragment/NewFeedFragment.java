@@ -126,6 +126,7 @@ public class NewFeedFragment extends Fragment implements NewFeedListener {
         PostAdapter adapter = new PostAdapter(getActivity(), getContext());
         adapter.setData(this.allPost);
         adapter.setData_user(this.allUser);
+        adapter.setUser(this.user);
         this.listView.setAdapter(adapter);
     }
 

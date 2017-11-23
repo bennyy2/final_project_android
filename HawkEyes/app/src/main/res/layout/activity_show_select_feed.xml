@@ -5,24 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20px"
+    android:background="#FFFFF0"
     tools:context="kmitl.project.benjarat58070079.hawkeyes.ShowSelectFeedActivity">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120px"
+        android:background="#88BBAA"
         android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
         android:text="View post"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px">
 
             <ImageView
                 android:id="@+id/profile_user"
@@ -30,47 +32,53 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/ic_launcher"/>
             <TextView
-                android:id="@+id/display_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="user_name"/>
+                android:layout_marginLeft="20px"
+                android:id="@+id/show_post"
+                android:text="your post"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/show_post"
-            android:text="your post"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
 
-    </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="10px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="5">
         <TextView
-            android:id="@+id/show_date"
-            android:layout_weight="1"
+            android:id="@+id/display_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="date"/>
+            android:text="user_name"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TYPE : "
+            android:textStyle="bold"
+            android:layout_weight="2"/>
         <TextView
             android:id="@+id/show_type"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="type"/>
+            android:text="type"
+            android:layout_weight="2"/>
+
     </LinearLayout>
 
 
+
     <TextView
-        android:layout_marginTop="30px"
+        android:layout_marginTop="20px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Location"
+        android:text="Place of Accident"
+        android:textStyle="bold"
         android:gravity="center"/>
 
     <fragment
@@ -79,6 +87,68 @@
         android:layout_height="300px"
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.MapFragment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comment"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+
+        <TextView
+            android:textSize="10sp"
+            android:id="@+id/show_date"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="20px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:inputType="textMultiLine"
+            android:ems="10"/>
+
+    <ImageButton
+        android:onClick="onSaveComment"
+        android:id="@+id/btnComment"
+        android:layout_width="100px"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_send_button"
+        android:layout_gravity="right"
+        android:layout_marginRight="10px"
+        android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10px"
+        android:layout_weight="3" />
+
 
 
 </LinearLayout>

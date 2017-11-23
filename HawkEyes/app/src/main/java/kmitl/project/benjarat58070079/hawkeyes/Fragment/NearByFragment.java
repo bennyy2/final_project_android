@@ -15,20 +15,35 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import kmitl.project.benjarat58070079.hawkeyes.Model.Post;
 import kmitl.project.benjarat58070079.hawkeyes.R;
 
 import static android.content.Context.LOCATION_SERVICE;
@@ -43,11 +58,16 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
     private TextView locationView;
     private Button getLocation;
     private LocationManager locationManager;
-    private LocationListener listener;
     private ArrayList<String> type = new ArrayList<>();
     private Spinner spinner;
     private MapView mapView;
     private GoogleMap mGoogleMap;
+    private Post post;
+    private ArrayList<Post> postByType;
+    private String selectType;
+    private ImageButton btnType;
+    private Marker marker;
+    private DatabaseReference databaseReference;
 
 
 
@@ -81,6 +101,22 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_dropdown_item_1line, type);
         spinner.setAdapter(adapter);
+        btnType = rootView.findViewById(R.id.selectType);
+        btnType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectType = String.valueOf(spinner.getSelectedItem());
+                fetchData();
+            }
+        });
+
+
+
+
+
+
+
+
 //        locationView = rootView.findViewById(R.id.locationView);
 //        getLocation = rootView.findViewById(R.id.getLocation);
 //        locationManager = (LocationManager) this.getContext().getSystemService(LOCATION_SERVICE);
@@ -111,6 +147,8 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
+
+
     private void eventType() {
         type.add("Accident");
         type.add("Murder");
@@ -119,7 +157,8 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
         type.add("Illegal trading");
         type.add("Gambling");
         type.add("Stalking");
-        type.add("physically assaulted");
+        type.add("Physically assaulted");
+        type.add("Things lost");
         type.add("Other");
 
     }
@@ -128,62 +167,58 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
     }
+
+    public void fetchData(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("post/");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                postByType = new ArrayList<>();
+
+                for (DataSnapshot dn : dataSnapshot.getChildren()) {
+                        Post post = dn.getValue(Post.class);
+
+                        if(post.getType().equals(selectType)){
+                            postByType.add(post);
+                        }
+
+                }
+                pinLocation();
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    private void pinLocation() {
+        mGoogleMap.clear();
+        for(Post post:postByType){
+
+            MarkerOptions options = new MarkerOptions().title(post.getText_post())
+                    .position(new LatLng(post.getLatitude(), post.getLongtitude()));
+            mGoogleMap.addMarker(options);
+            LatLng latLng = new LatLng(post.getLatitude(), post.getLongtitude());
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 8);
+            mGoogleMap.moveCamera(cameraUpdate);
+        }
+
+
+
+    }
+
+
+
+
 }
 
 
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode) {
-//            case 10:
-//                configure_button();
-//                break;
-//            default:
-//                break;
-//        }
-//
-//    }
-
-
-//    private void getLocationPermission() {
-//    /*
-//     * Request location permission, so that we can get the location of the
-//     * device. The result of the permission request is handled by a callback,
-//     * onRequestPermissionsResult.
-//     */
-//        if (ContextCompat.checkSelfPermission(this.getContext(),
-//                android.Manifest.permission.ACCESS_FINE_LOCATION)
-//                == PackageManager.PERMISSION_GRANTED) {
-//            mLocationPermissionGranted = true;
-//        } else {
-//            ActivityCompat.requestPermissions(this,
-//                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-//                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-//        }
-//    }
-
-//    private void configure_button() {
-//        if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
-//                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(),
-//                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-//                                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}
-//                        , 10);
-//            }
-//            return;
-//        }
-//        // this code won'textView execute IF permissions are not allowed, because in the line above there is return statement.
-//        getLocation.setOnClickListener(new View.OnClickListener() {
-//            @SuppressLint("MissingPermission")
-//            @Override
-//            public void onClick(View view) {
-//
-//                locationManager.requestLocationUpdates("gps", 5000, 0, listener);
-//            }
-//        });
-//    }
 
 
 

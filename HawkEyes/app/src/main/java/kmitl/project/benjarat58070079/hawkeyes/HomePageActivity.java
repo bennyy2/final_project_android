@@ -1,7 +1,6 @@
 package kmitl.project.benjarat58070079.hawkeyes;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
-import kmitl.project.benjarat58070079.hawkeyes.Fragment.MyAccountFragment;
 import kmitl.project.benjarat58070079.hawkeyes.Fragment.NearByFragment;
 import kmitl.project.benjarat58070079.hawkeyes.Fragment.NewFeedFragment;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
@@ -90,9 +87,6 @@ public class HomePageActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -102,7 +96,6 @@ public class HomePageActivity extends AppCompatActivity
 
         switch(id){
             case R.id.nav_newfeed:
-
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", user);
                 fragment = new NewFeedFragment();
@@ -117,10 +110,6 @@ public class HomePageActivity extends AppCompatActivity
 //                Intent mapIntent = new Intent(Intent.ACTION_VIEW, uri);
 //                mapIntent.setPackage("com.google.android.apps.maps");
 //                startActivity(mapIntent);
-                break;
-            case R.id.nav_account:
-                fragment = new MyAccountFragment();
-                this.navigationView.setCheckedItem(R.id.nav_account);
                 break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();

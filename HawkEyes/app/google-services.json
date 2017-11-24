@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "216935804253",
+    "firebase_url": "https://hawkeye-687d4.firebaseio.com",
+    "project_id": "hawkeye-687d4",
+    "storage_bucket": "hawkeye-687d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216935804253:android:c789489a3c3c9957",
+        "android_client_info": {
+          "package_name": "kmitl.project.benjarat58070079.hawkeyes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216935804253-tdo52gsvm92qoq60f4906v5r9d1q9un8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kmitl.project.benjarat58070079.hawkeyes",
+            "certificate_hash": "464be49ddacc488acef2d5e65d4c4ed0445d514a"
+          }
+        },
+        {
+          "client_id": "216935804253-44jh71secgmpr3ebp2ml64qtff1nlaal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrdfxuhIWLcr2l_rtEEs1j2VYFazJInbc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216935804253-44jh71secgmpr3ebp2ml64qtff1nlaal.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

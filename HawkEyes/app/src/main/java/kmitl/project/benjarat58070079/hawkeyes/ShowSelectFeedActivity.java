@@ -53,7 +53,6 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
     private CircleImageView profile_user;
     private RecyclerView listView;
     private DatabaseReference databaseReference;
-    private CommentValidation commentValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +103,6 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
                     if(comment.getPost_id().equals(post.getId())){
                         allComment.add(comment);
                     }
-
                 }
                 setUI();
             }
@@ -142,9 +140,6 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
     }
 
     public void onSaveComment(View view) {
-        if(String.valueOf(commentText.getText()).equals("")){
-            Toast.makeText(this.getApplicationContext(), commentValidation.getResult(String.valueOf(commentText.getText())), Toast.LENGTH_LONG).show();
-        }else{
             Comment comment = new Comment();
             comment.setPost_id(post.getId());
             comment.setComment_text(String.valueOf(commentText.getText()));
@@ -153,8 +148,6 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
             commentText.setText("");
             InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-
-
+        
     }
 }

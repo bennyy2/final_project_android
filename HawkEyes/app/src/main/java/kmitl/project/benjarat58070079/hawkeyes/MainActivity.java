@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity  {
     private ConstraintLayout loadingView;
     private DatabaseReference databaseReference;
     private User user;
-    private ModelValidation modelValidation;
 
 
     @Override
@@ -113,7 +112,6 @@ public class MainActivity extends AppCompatActivity  {
             showHomePageActivity();
 
         }
-        Toast.makeText(this.getApplicationContext(), modelValidation.getResult(String.valueOf(user)), Toast.LENGTH_LONG).show();
 
     }
 

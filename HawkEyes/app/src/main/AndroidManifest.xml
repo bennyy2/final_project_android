@@ -68,7 +68,8 @@
             android:label="@string/title_activity_home_page"
             android:theme="@style/AppTheme" />
         <activity android:name=".AddNeewFeedActivity" />
-        <activity android:name=".ShowSelectFeedActivity"></activity>
+        <activity android:name=".ShowSelectFeedActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

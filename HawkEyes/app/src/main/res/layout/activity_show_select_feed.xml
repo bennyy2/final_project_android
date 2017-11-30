@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,117 +9,155 @@
     tools:context="kmitl.project.benjarat58070079.hawkeyes.ShowSelectFeedActivity">
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="120px"
         android:background="#88BBAA"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:text="View post"
         android:textColor="@android:color/white"
-        android:text="View post"/>
-
-
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20px">
-
-            <ImageView
-                android:id="@+id/profile_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/ic_launcher"/>
-            <TextView
-                android:layout_marginLeft="20px"
-                android:id="@+id/show_post"
-                android:text="your post"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-
-
-
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_margin="10px"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10px"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="55dp"
         android:orientation="horizontal"
-        android:weightSum="5">
+        android:weightSum="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
         <TextView
             android:id="@+id/display_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="user_name"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="user_name" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:text="TYPE : "
-            android:textStyle="bold"
-            android:layout_weight="2"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/show_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="type"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:text="type" />
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/profile_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/show_post"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20px"
+            android:text="your post" />
+
+    </LinearLayout>
 
 
     <TextView
-        android:layout_marginTop="20px"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Place of Accident"
         android:textStyle="bold"
-        android:gravity="center"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <fragment
-        android:layout_margin="20px"
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="300px"
-        android:id="@+id/mapFragment"
-        android:name="com.google.android.gms.maps.MapFragment" />
+        android:layout_margin="20px"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapFragment">
+
         <TextView
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comment"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-
-        <TextView
-            android:textSize="10sp"
-            android:id="@+id/show_date"
             android:layout_weight="1"
             android:gravity="center"
+            android:text="Comment"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/show_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="date"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="date"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
 
-
     <LinearLayout
-        android:layout_marginTop="20px"
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
 
         <EditText
@@ -127,28 +165,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:inputType="textMultiLine"
-            android:ems="10"/>
+            android:ems="10" />
+        <ImageButton
+            android:id="@+id/btnComment"
+            android:layout_width="70px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10px"
+            android:layout_weight="1"
+            android:background="@drawable/ic_send_button"
+            android:onClick="onSaveComment" />
 
-    <ImageButton
-        android:onClick="onSaveComment"
-        android:id="@+id/btnComment"
-        android:layout_width="100px"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_send_button"
-        android:layout_gravity="right"
-        android:layout_marginRight="10px"
-        android:layout_weight="1"/>
     </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="10px"
-        android:layout_weight="3" />
+        android:layout_marginBottom="8dp"
+        android:layout_weight="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+    </android.support.v7.widget.RecyclerView>
 
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -78,6 +78,7 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
     private Place place;
     private EditText text_post;
     private int clickCheck = 0;
+    private PostValidation postValidation;
 
 
     @Override
@@ -171,9 +172,14 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
             post.setPost_user(user.getId());
             post.setType(String.valueOf(spinner.getSelectedItem()));
             post.setDateTime(date);
-            post.savePost();
-            finish();
-            Toast.makeText(this.getApplicationContext(), "Post", Toast.LENGTH_LONG).show();
+            if(postValidation.getResult(String.valueOf(text_post.getText())).equals("post") ){
+
+                post.savePost();
+                finish();
+
+            }
+            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
+
         }
 
 

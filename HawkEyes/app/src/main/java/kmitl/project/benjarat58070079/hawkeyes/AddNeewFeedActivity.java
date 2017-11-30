@@ -160,7 +160,12 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
     public void onSubmitData(View view) {
         if(clickCheck == 0){
             Toast.makeText(this.getApplicationContext(), "Select location of event", Toast.LENGTH_LONG).show();
-        }else{
+        }
+        else if(String.valueOf(text_post.getText()).equals("")){
+            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
+        }
+        else{
+
             Date currentTime = Calendar.getInstance().getTime();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String date = format.format(currentTime);
@@ -174,14 +179,7 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
             post.setDateTime(date);
             post.savePost();
             finish();
-            Toast.makeText(this.getApplicationContext(), "post", Toast.LENGTH_LONG).show();
-//            if(postValidation.getResult(String.valueOf(text_post.getText())).equals("post") ){
-//
-//
-//
-//            }
-//            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
-
+            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
         }
 
 

@@ -7,10 +7,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,6 +53,7 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
     CircleImageView profile_user;
     private RecyclerView listView;
     private DatabaseReference databaseReference;
+    private CommentValidation commentValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,12 +143,19 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
     }
 
     public void onSaveComment(View view) {
-        Comment comment = new Comment();
-//        comment.setPost_id();
-        comment.setPost_id(post.getId());
-        comment.setComment_text(String.valueOf(commentText.getText()));
-        comment.setUser_id(user.getId());
-        comment.saveComment();
-        commentText.setText("");
+        if(String.valueOf(commentText.getText()).equals("")){
+            Toast.makeText(this.getApplicationContext(), commentValidation.getResult(String.valueOf(commentText.getText())), Toast.LENGTH_LONG).show();
+        }else{
+            Comment comment = new Comment();
+            comment.setPost_id(post.getId());
+            comment.setComment_text(String.valueOf(commentText.getText()));
+            comment.setUser_id(user.getId());
+            comment.saveComment();
+            commentText.setText("");
+            InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+
+
     }
 }

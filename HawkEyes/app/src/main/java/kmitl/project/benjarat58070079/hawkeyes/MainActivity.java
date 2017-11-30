@@ -39,6 +39,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import kmitl.project.benjarat58070079.hawkeyes.Model.Post;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
 
 
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity  {
     private ConstraintLayout loadingView;
     private DatabaseReference databaseReference;
     private User user;
+    private ModelValidation modelValidation;
 
 
     @Override
@@ -110,12 +112,12 @@ public class MainActivity extends AppCompatActivity  {
         if(currentUser != null){
             user = new User(currentUser.getUid(), currentUser.getDisplayName(),
                     currentUser.getEmail(), String.valueOf(currentUser.getPhotoUrl()));
-            Log.i("Status", "signInFaceBook");
-//            user.setListener(this);
             user.saveUserData();
             showHomePageActivity();
-//            user.checkUser();
+
         }
+        Toast.makeText(this.getApplicationContext(), modelValidation.getResult(String.valueOf(user)), Toast.LENGTH_LONG).show();
+
     }
 
     private void showHomePageActivity() {

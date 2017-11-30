@@ -20,10 +20,6 @@ class PostValidation {
     }
 
 
-
-
-
-
     public String getResult(String name) {
         if(postEmpty(name)){
             result = "please write your post before submit.";

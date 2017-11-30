@@ -80,7 +80,6 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
     private int clickCheck = 0;
     private PostValidation postValidation;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +93,6 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, type);
         spinner.setAdapter(adapter);
-
-
     }
 
     private void requestPermissions() {
@@ -116,7 +113,6 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
                     finish();
                 }
                 break;
-
         }
     }
 
@@ -141,8 +137,6 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
         Intent intent = builder.build(AddNeewFeedActivity.this);
         startActivityForResult(intent, PLACE_PICKER_REQUEST);
         clickCheck = 5;
-
-
     }
 
     @Override
@@ -151,8 +145,7 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
         if(requestCode == PLACE_PICKER_REQUEST){
             if(resultCode == RESULT_OK){
                 place = PlacePicker.getPlace(AddNeewFeedActivity.this, data);
-                    placeAddress.setText(String.valueOf(place.getAddress()));
-
+                placeAddress.setText(String.valueOf(place.getAddress()));
             }
         }
     }
@@ -165,7 +158,6 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
             Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
         }
         else{
-
             Date currentTime = Calendar.getInstance().getTime();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String date = format.format(currentTime);

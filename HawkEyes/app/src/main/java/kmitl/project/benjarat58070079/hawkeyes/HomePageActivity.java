@@ -40,14 +40,11 @@ public class HomePageActivity extends AppCompatActivity
         setContentView(R.layout.activity_home_page);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         user = getIntent().getParcelableExtra("user");
@@ -57,7 +54,6 @@ public class HomePageActivity extends AppCompatActivity
         txtEmail.setText(user.getEmail());
         imgProfile = navigationView.getHeaderView(0).findViewById(R.id.imgProfile);
         Picasso.with(this).load(user.getImage_url()).into(imgProfile);
-
         onNavigationItemSelected(this.navigationView.getMenu().getItem(0));
 
     }
@@ -75,20 +71,13 @@ public class HomePageActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_page, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -107,10 +96,6 @@ public class HomePageActivity extends AppCompatActivity
             case R.id.nav_nearby:
                 fragment = new NearByFragment();
                 this.navigationView.setCheckedItem(R.id.nav_nearby);
-//                Uri uri = Uri.parse("geo:0,0?q=");
-//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, uri);
-//                mapIntent.setPackage("com.google.android.apps.maps");
-//                startActivity(mapIntent);
                 break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
@@ -134,7 +119,6 @@ public class HomePageActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         displaySelectedScreen(id);
         return true;

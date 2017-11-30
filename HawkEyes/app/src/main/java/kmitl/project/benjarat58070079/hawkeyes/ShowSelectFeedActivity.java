@@ -48,9 +48,9 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
     private ArrayList<Comment> allComment;
     private GoogleMap mGoogleMap;
     private User user;
-    TextView display_user, show_post, show_date, show_type;
-    EditText commentText;
-    CircleImageView profile_user;
+    private TextView display_user, show_post, show_date, show_type;
+    private EditText commentText;
+    private CircleImageView profile_user;
     private RecyclerView listView;
     private DatabaseReference databaseReference;
     private CommentValidation commentValidation;
@@ -123,7 +123,6 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
         adapter.setAllComment(this.allComment);
         adapter.setData_user(this.data_user);
         listView.setAdapter(adapter);
-        Log.i("CommentPost", "setUI");
     }
 
 

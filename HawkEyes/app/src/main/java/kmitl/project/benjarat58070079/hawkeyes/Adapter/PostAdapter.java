@@ -39,8 +39,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
     private User user;
     private Activity activity;
     private Context context;
-//    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
-
 
     public PostAdapter(Activity activity, Context context) {
         this.activity = activity;
@@ -64,23 +62,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
 
         for(User user: data_user){
             if(user.getId().equals(post.getPost_user()) ){
-//                user = this.data_user.get(position);
                 holder.post_user.setText(user.getDisplay_name());
                 Picasso.with(context).load(user.getImage_url()).into(holder.profile_image);
                 break;
             }
         }
-
-//        String url = data.get(position).getUrl();
-//        String getlike = data.get(position).getLike();
-//        String getcomment = data.get(position).getComment();
-//        //context get from activity
-//        Glide.with(context)
-//                .load(url)
-//                .into(holder.image);
-//
-//        TextView post = holder.post;
-//        post.setText();
     }
 
     @Override
@@ -101,11 +87,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
     }
 
     class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private CircleImageView profile_image;
 
+        private CircleImageView profile_image;
         private TextView post, date, post_user;
         private CardView post_view;
-
         private Holder(View itemView){
             super(itemView);
 
@@ -120,7 +105,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
         @Override
         public void onClick(View view) {
             Post post = data.get(getAdapterPosition());
-//            User user = data_user.get(getAdapterPosition());
             Intent intent = new Intent(context, ShowSelectFeedActivity.class);
             intent.putExtra("post", post);
             intent.putExtra("user", user);

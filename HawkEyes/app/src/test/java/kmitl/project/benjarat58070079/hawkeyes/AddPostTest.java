@@ -13,30 +13,18 @@ public class AddPostTest {
 
 
     @Test
-    public void postIsEmptyFail(){
+    public void postIsEmpty(){
         PostValidation postValidation = new PostValidation();
         String result = postValidation.getResult("");
         assertEquals("please write your post before submit.", result);
     }
 
     @Test
-    public void postIsEmptySuccess(){
+    public void postIsSuccess(){
         PostValidation postValidation = new PostValidation();
         String result = postValidation.getResult("test");
         assertEquals("post", result);
     }
 
-
-
-
-
-
-
-//    @Test
-//    public void locationIsEmpty(){
-//        PostValidation postValidation = new PostValidation();
-//        String result = postValidation.getResult("");
-//
-//    }
 
 }

@@ -67,20 +67,17 @@ public class MainActivity extends AppCompatActivity  {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("status", "facebook:onSuccess:" + loginResult);
                 showLoadingView();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
-                Log.d("status", "facebook:onCancel");
 
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("status", "facebook:onError", error);
 
             }
         });
@@ -130,27 +127,20 @@ public class MainActivity extends AppCompatActivity  {
 
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d("status", "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("status", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             signInFaceBook(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("status", "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             signInFaceBook(null);
                         }
 
-                        // ...
                     }
                 });
     }
@@ -164,13 +154,4 @@ public class MainActivity extends AppCompatActivity  {
         loadingView.setVisibility(View.GONE);
     }
 
-//    @Override
-//    public void onCheckedUser(boolean status) {
-//        user.saveUserData();
-//        if (!status) {
-//            user.saveUserData();
-//        }
-//        Log.i("Status", "onCheckedUser");
-//        showHomePageActivity();
-//    }
 }

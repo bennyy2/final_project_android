@@ -39,7 +39,6 @@ public class CommentAdapter extends RecyclerView.Adapter<Holder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.comment_item, null);
         Holder holder = new Holder(itemView);
-        Log.i("CommentPost", "onCreateView");
         return holder;
     }
 
@@ -54,8 +53,6 @@ public class CommentAdapter extends RecyclerView.Adapter<Holder> {
                 break;
             }
         }
-        Log.i("CommentPost", String.valueOf(data_user));
-
     }
 
     @Override

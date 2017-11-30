@@ -85,16 +85,13 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
         mapView.onResume();
         mapView.getMapAsync(this);
 
-
     }
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_near_by, container, false);
         eventType();
         spinner = rootView.findViewById(R.id.event_type);
@@ -110,44 +107,9 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-
-
-
-
-
-
-
-//        locationView = rootView.findViewById(R.id.locationView);
-//        getLocation = rootView.findViewById(R.id.getLocation);
-//        locationManager = (LocationManager) this.getContext().getSystemService(LOCATION_SERVICE);
-//        listener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                locationView.append("\n " + location.getLongitude() + " " + location.getLatitude());
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String s, int i, Bundle bundle) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String s) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String s) {
-//
-//            }
-//        };
-//        configure_button();
         return rootView;
 
-
     }
-
-
 
     private void eventType() {
         type.add("Accident");
@@ -177,14 +139,11 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
 
                 for (DataSnapshot dn : dataSnapshot.getChildren()) {
                         Post post = dn.getValue(Post.class);
-
                         if(post.getType().equals(selectType)){
                             postByType.add(post);
                         }
-
                 }
                 pinLocation();
-
             }
 
 
@@ -192,14 +151,12 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
         });
     }
 
     private void pinLocation() {
         mGoogleMap.clear();
         for(Post post:postByType){
-
             MarkerOptions options = new MarkerOptions().title(post.getText_post())
                     .position(new LatLng(post.getLatitude(), post.getLongtitude()));
             mGoogleMap.addMarker(options);
@@ -207,13 +164,7 @@ public class NearByFragment extends Fragment implements OnMapReadyCallback {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 8);
             mGoogleMap.moveCamera(cameraUpdate);
         }
-
-
-
     }
-
-
-
 
 }
 

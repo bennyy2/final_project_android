@@ -14,8 +14,6 @@ class ModelValidation {
     }
 
 
-
-
     public String getResult(String name) {
         if(userInModel(name)){
             result = "Sign in fail.";

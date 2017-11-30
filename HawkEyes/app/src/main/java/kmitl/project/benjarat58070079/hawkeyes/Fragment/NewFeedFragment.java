@@ -58,7 +58,6 @@ public class NewFeedFragment extends Fragment implements NewFeedListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         getActivity().setTitle("New Feed");
     }
 
@@ -66,14 +65,12 @@ public class NewFeedFragment extends Fragment implements NewFeedListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.allPost = new ArrayList<>();
-        Log.i("Status", "onCreate");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_newfeed, container, false);
         FloatingActionButton addBtn = rootView.findViewById(R.id.btnFAB);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +79,11 @@ public class NewFeedFragment extends Fragment implements NewFeedListener {
                 Intent intent = new Intent(getActivity(), AddNeewFeedActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
-
             }
         });
         if (getArguments() != null) {
             user = getArguments().getParcelable("user");
         }
-
         this.listView = rootView.findViewById(R.id.listView);
         this.listView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 1));
         listener = this;
@@ -103,7 +98,6 @@ public class NewFeedFragment extends Fragment implements NewFeedListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 allPost = new ArrayList<>();
-
                 for (DataSnapshot dn : dataSnapshot.getChildren()) {
                     Post post = dn.getValue(Post.class);
                     allPost.add(post);
@@ -112,7 +106,6 @@ public class NewFeedFragment extends Fragment implements NewFeedListener {
                     listener.OnFetchPostsData();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -122,7 +115,6 @@ public class NewFeedFragment extends Fragment implements NewFeedListener {
     }
 
     private void setUI() {
-
         PostAdapter adapter = new PostAdapter(getActivity(), getContext());
         adapter.setData(this.allPost);
         adapter.setData_user(this.allUser);

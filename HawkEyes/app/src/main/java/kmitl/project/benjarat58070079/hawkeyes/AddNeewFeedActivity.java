@@ -172,13 +172,15 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
             post.setPost_user(user.getId());
             post.setType(String.valueOf(spinner.getSelectedItem()));
             post.setDateTime(date);
-            if(postValidation.getResult(String.valueOf(text_post.getText())).equals("post") ){
-
-                post.savePost();
-                finish();
-
-            }
-            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
+            post.savePost();
+            finish();
+            Toast.makeText(this.getApplicationContext(), "post", Toast.LENGTH_LONG).show();
+//            if(postValidation.getResult(String.valueOf(text_post.getText())).equals("post") ){
+//
+//
+//
+//            }
+//            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
 
         }
 

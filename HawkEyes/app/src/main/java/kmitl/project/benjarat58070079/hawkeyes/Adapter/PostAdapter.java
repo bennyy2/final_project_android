@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kmitl.project.benjarat58070079.hawkeyes.AddNeewFeedActivity;
 import kmitl.project.benjarat58070079.hawkeyes.Model.Post;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
@@ -100,7 +101,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.Holder> {
     }
 
     class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView profile_image;
+        private CircleImageView profile_image;
 
         private TextView post, date, post_user;
         private CardView post_view;

@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kmitl.project.benjarat58070079.hawkeyes.Adapter.CommentAdapter;
 import kmitl.project.benjarat58070079.hawkeyes.Adapter.PostAdapter;
 import kmitl.project.benjarat58070079.hawkeyes.Model.Comment;
@@ -47,7 +48,7 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
     private User user;
     TextView display_user, show_post, show_date, show_type;
     EditText commentText;
-    ImageView profile_user;
+    CircleImageView profile_user;
     private RecyclerView listView;
     private DatabaseReference databaseReference;
 

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kmitl.project.benjarat58070079.hawkeyes.Fragment.NearByFragment;
 import kmitl.project.benjarat58070079.hawkeyes.Fragment.NewFeedFragment;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
@@ -29,7 +30,7 @@ public class HomePageActivity extends AppCompatActivity
     private User user;
     private Button btnLogOut;
     private TextView txtEmail, txtUser;
-    private ImageView imgProfile;
+    private CircleImageView imgProfile;
     private NavigationView navigationView;
 
 

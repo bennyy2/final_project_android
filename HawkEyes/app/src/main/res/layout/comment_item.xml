@@ -26,13 +26,16 @@
             android:layout_height="120px"
             android:orientation="horizontal"
             android:weightSum="5">
-            <ImageView
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_gravity="center_vertical"
                 android:padding="10px"
                 android:id="@+id/profileImg"
                 android:layout_width="0px"
                 android:layout_height="100px"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@android:color/white"/>
 
             <TextView
                 android:layout_marginLeft="10px"

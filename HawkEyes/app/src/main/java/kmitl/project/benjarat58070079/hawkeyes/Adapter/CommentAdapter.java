@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import kmitl.project.benjarat58070079.hawkeyes.Model.Comment;
 import kmitl.project.benjarat58070079.hawkeyes.Model.User;
 import kmitl.project.benjarat58070079.hawkeyes.R;
@@ -75,7 +76,7 @@ public class CommentAdapter extends RecyclerView.Adapter<Holder> {
 class Holder extends RecyclerView.ViewHolder {
 
     TextView post_user, commentView;
-    ImageView profileImg;
+    CircleImageView profileImg;
 
 
     public Holder(View itemView) {

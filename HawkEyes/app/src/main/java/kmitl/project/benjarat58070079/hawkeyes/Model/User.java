@@ -42,7 +42,6 @@ public class User implements Parcelable {
 
 
     public void saveUserData(){
-        Log.i("Status","saveUserData");
         databaseReference = FirebaseDatabase.getInstance().getReference("user/");
         databaseReference.child(this.id).child("display_name").setValue(this.display_name);
         databaseReference.child(this.id).child("id").setValue(this.id);
@@ -55,7 +54,6 @@ public class User implements Parcelable {
         databaseReference.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("Status", "onDataChange");
                 boolean status = true;
 
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
@@ -68,7 +66,6 @@ public class User implements Parcelable {
                 }
 
                 if (listener != null) {
-                    Log.i("Status", "Listener " + String.valueOf(status));
                     listener.onCheckedUser(status);
                 }
             }

@@ -116,7 +116,6 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void setUI() {
-
         CommentAdapter adapter = new CommentAdapter(this);
         adapter.setAllComment(this.allComment);
         adapter.setData_user(this.data_user);
@@ -148,6 +147,5 @@ public class ShowSelectFeedActivity extends AppCompatActivity implements OnMapRe
             commentText.setText("");
             InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        
     }
 }

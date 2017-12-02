@@ -152,10 +152,10 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
 
     public void onSubmitData(View view) {
         if(clickCheck == 0){
-            Toast.makeText(this.getApplicationContext(), "Select location of event", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Select location of event", Toast.LENGTH_LONG).show();
         }
-        else if(String.valueOf(text_post.getText()).equals("")){
-            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
+        else if(String.valueOf(text_post.getText()).equals("") || String.valueOf(text_post.getText()) == null){
+            Toast.makeText(this, "please write your post before submit.", Toast.LENGTH_LONG).show();
         }
         else{
             Date currentTime = Calendar.getInstance().getTime();
@@ -171,7 +171,7 @@ public class AddNeewFeedActivity extends AppCompatActivity  {
             post.setDateTime(date);
             post.savePost();
             finish();
-            Toast.makeText(this.getApplicationContext(), postValidation.getResult(String.valueOf(text_post.getText())), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "post", Toast.LENGTH_LONG).show();
         }
 
 

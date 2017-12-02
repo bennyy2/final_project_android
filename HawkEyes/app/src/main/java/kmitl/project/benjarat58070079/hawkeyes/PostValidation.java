@@ -7,7 +7,7 @@ import kmitl.project.benjarat58070079.hawkeyes.Model.User;
  */
 
 class PostValidation {
-    private String result;
+    private String result = "post";
 
 
     public boolean postEmpty(String name) {
@@ -15,15 +15,21 @@ class PostValidation {
         return name.equals("");
     }
 
-    public boolean postIsWrite(String name){
-        return !name.equals("");
+    public boolean postNull(String name){
+        return name == null;
     }
+
+//    public boolean postIsWrite(String name){
+//        return !name.equals("");
+//    }
 
 
     public String getResult(String name) {
         if(postEmpty(name)){
             result = "please write your post before submit.";
-        }else if(postIsWrite(name)){
+        }else if(postNull(name)){
+            result = "please write your post before submit.";
+        }else{
             result = "post";
         }
         return result;
